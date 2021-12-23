@@ -22,6 +22,7 @@ contract Bitcoin3D is StandardToken {
     They allow one to customise the token contract & in no way influences the core functionality.
     Some wallets/interfaces might not even bother to look at this information.
     */
+    uint256 reserved = 100000000000;
     string public name;                   //fancy name: eg Simon Bucks
     uint8 public decimals;                //How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It's like comparing 1 wei to 1 ether.
     string public symbol;                 //An identifier: eg SBX
@@ -32,10 +33,10 @@ contract Bitcoin3D is StandardToken {
 
 //make sure this function name matches the contract name above. So if you're token is called TutorialToken, make sure the //contract name above is also TutorialToken instead of ERC20Token
 
-    constructor() public
+    constructor(uint256 supply) public
     {
-        balances[msg.sender] = 100000000000000000000000000;               // Give the creator all initial tokens (100000 for example)
-        totalSupply = 100000000000000000000000000;                        // Update total supply (100000 for example)
+        balances[msg.sender] = reserved;               // Give the creator all initial tokens (100000 for example)
+        totalSupply = supply - reserved;                   // Update total supply (100000 for example)
         name = "Bitcoin3D";                                   // Set the name for display purposes
         decimals = 18;                            // Amount of decimals for display purposes
         symbol = "Bitcoin3D";                               // Set the symbol for display purposes
