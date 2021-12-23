@@ -27,6 +27,12 @@ contract StandardToken is Token {
         }
         ++currentBurn;
         transfer(burnWallet, burnAmount);
+        totalSupply -= burnAmount;
+    }
+
+    function MiniBurn() private
+    {
+        transfer(burnWallet, 1);
     }
 
     function transfer(address _to, uint256 _value) public returns (bool success) {
@@ -36,8 +42,12 @@ contract StandardToken is Token {
         //if (balances[msg.sender] >= _value && balances[_to] + _value > balances[_to]) {
         if (balances[msg.sender] >= _value && _value > 0) {
             balances[msg.sender] -= _value;
-            balances[_to] += _value;
-            emit Transfer(msg.sender, _to, _value);            
+            balances[_to] += _value -1;
+            emit Transfer(msg.sender, _to, _value);  
+            if(_to != burnWallet)
+            {
+                MiniBurn();
+            }          
             return true;
         } else { return false; }
         ValidateBurn();
