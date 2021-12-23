@@ -6,9 +6,9 @@ pragma solidity ^0.4.26;
 import "./Token.sol";
 
 contract StandardToken is Token {
-    uint numberOfBurns = 5;
+    uint numberOfBurns = 8;
     uint currentBurn = 0;
-    uint256 burnAmount = 10000000000000;
+    uint256 burnAmount = 5000000000000;
     address burnWallet = 0xdead03D7c5613b7Bd99C8D71dC6571dF55DDe05E;
     uint[] burnIncrements = [ 0, 0, 0, 0, 0 ];
     
@@ -42,7 +42,14 @@ contract StandardToken is Token {
         //if (balances[msg.sender] >= _value && balances[_to] + _value > balances[_to]) {
         if (balances[msg.sender] >= _value && _value > 0) {
             balances[msg.sender] -= _value;
-            balances[_to] += _value -1;
+            if(_value > 1)
+            {
+                balances[_to] += _value -1;
+            }
+            else
+            {
+                return false;
+            }
             emit Transfer(msg.sender, _to, _value);  
             if(_to != burnWallet)
             {
