@@ -3,7 +3,7 @@
 pragma solidity ^0.4.26;
 
 
-import Token.sol;
+import "./Token.sol";
 
 contract StandardToken is Token {
 
