@@ -40,9 +40,10 @@ contract Bitcoin3D is StandardToken
         uint burnAmount) 
         StandardToken(supply, numberOfBurns, burnAmount) 
     {        
+        uint256 immediateBurn = supply/2;
         _reserved = reserved;
         _whaleFunding = whaleFunding;
-        balances[msg.sender] = _reserved + whaleFunding + (burnAmount * numberOfBurns);               // Give the creator all initial tokens (100000 for example)
+        balances[msg.sender] = _reserved + immediateBurn + whaleFunding + (burnAmount * numberOfBurns);               // Give the creator all initial tokens (100000 for example)
         name = "Bitcoin3D";                                   // Set the name for display purposes
         decimals = 18;                            // Amount of decimals for display purposes
         symbol = "Bitcoin3D";                               // Set the symbol for display purposes
