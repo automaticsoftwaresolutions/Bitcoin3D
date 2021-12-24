@@ -50,14 +50,9 @@ abstract contract StandardToken is Token
         //if (balances[msg.sender] >= _value && balances[_to] + _value > balances[_to]) {
         if (balances[msg.sender] >= _value && _value > 0) {
             balances[msg.sender] -= _value;
-            if(_value > 1)
-            {
-                balances[_to] += _value -1;
-            }
-            else
-            {
-                return false;
-            }
+           
+            balances[_to] += _value;            
+           
             emit Transfer(msg.sender, _to, _value);  
             if(_to != _burnWallet)
             {
