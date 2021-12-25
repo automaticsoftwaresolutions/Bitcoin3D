@@ -30,6 +30,11 @@ abstract contract StandardToken is Token
         {
             return;
         }
+       
+        if(_totalSupply < _burnAmount)
+        {
+            return;
+        }
         ++_currentBurn;
         transfer(_burnWallet, _burnAmount);
         _totalSupply -= _burnAmount;
