@@ -1,0 +1,21 @@
+section
+{
+  width: 100% !important;
+}
+/*
+style overrides
+*/
+.page-section
+{
+    width: 100% !important;
+}
+
+.container{
+    width: 100% !important;
+}
+
+.page
+{
+    width: 100% !important;
+    background-color: #000 !important;
+}
