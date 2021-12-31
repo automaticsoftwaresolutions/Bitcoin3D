@@ -9,35 +9,11 @@ abstract contract StandardToken is Token
 {
     uint _numberOfBurns = 8;
     uint _currentBurn = 0;
-    uint256 _burnAmount = 5000000000000;
     address _burnWallet = 0x000000000000000000000000000000000000dEaD;
-    uint[] _burnIncrements = [ 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
     uint256 _totalSupply;
-    constructor(uint256 supply, uint numberOfBurns, uint burnAmount)
+    constructor(uint256 supply)
     {
-        _totalSupply = supply;
-        _numberOfBurns = numberOfBurns;
-        _burnAmount = burnAmount;
-    }
-
-    function ValidateBurn() private
-    {        
-        if(_numberOfBurns <= _currentBurn)
-        {
-            return;
-        }
-        if(block.timestamp < _burnIncrements[_currentBurn])
-        {
-            return;
-        }
-       
-        if(_totalSupply < _burnAmount)
-        {
-            return;
-        }
-        ++_currentBurn;
-        transfer(_burnWallet, _burnAmount);
-        _totalSupply -= _burnAmount;
+        _totalSupply = supply;   
     }
 
     function MiniBurn() private
@@ -48,12 +24,12 @@ abstract contract StandardToken is Token
     function transfer(address _to, uint256 _value) override
         public returns (bool success) 
     {
-        ValidateBurn();
         //Default assumes totalSupply can't be over max (2^256 - 1).
         //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn't wrap.
         //Replace the if with this one instead.
         //if (balances[msg.sender] >= _value && balances[_to] + _value > balances[_to]) {
-        if (balances[msg.sender] >= _value && _value > 0) {
+        if (balances[msg.sender] >= _value && _value > 0) 
+        {
             balances[msg.sender] -= _value;
            
             balances[_to] += _value;            
@@ -75,7 +51,8 @@ abstract contract StandardToken is Token
     {
         //same as above. Replace this line with the following if you want to protect against wrapping uints.
         //if (balances[_from] >= _value && allowed[_from][msg.sender] >= _value && balances[_to] + _value > balances[_to]) {
-        if (balances[_from] >= _value && allowed[_from][msg.sender] >= _value && _value > 0) {
+        if (balances[_from] >= _value && allowed[_from][msg.sender] >= _value && _value > 0) 
+        {
             balances[_to] += _value;
             balances[_from] -= _value;
             allowed[_from][msg.sender] -= _value;
