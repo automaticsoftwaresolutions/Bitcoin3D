@@ -39,7 +39,7 @@ contract Bitcoin3D is StandardToken
         balances[msg.sender] = supply;            
         name = "Bitcoin3D";                               
         decimals = 18;                            
-        symbol = "Bitcoin3D";                              
+        symbol = "BTC3D";                              
     }
 
     /* Approves and then calls the receiving contract */
